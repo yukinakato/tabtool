@@ -1,0 +1,14 @@
+{
+  "name": "tabtool",
+  "description" : "copy page title and url or share with twitter",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": "logo.png"
+  },
+  "background": {
+    "page" : "background.html",
+    "persistent": false
+  },
+  "permissions": ["tabs", "clipboardWrite"],
+  "manifest_version": 2
+}
