@@ -1,14 +1,16 @@
 {
   "name": "tabtool",
-  "description" : "copy page title and url or share with twitter",
+  "description" : "Copy page title and URL into clipboard or share with Twitter",
   "version": "1.0",
   "browser_action": {
-    "default_icon": "logo.png"
+    "default_icon": "icon_32.png"
   },
   "background": {
     "page" : "background.html",
     "persistent": false
   },
+  "icons": { "32": "icon_32.png",
+             "128": "icon_128.png" },
   "permissions": ["tabs", "clipboardWrite"],
   "manifest_version": 2
 }
