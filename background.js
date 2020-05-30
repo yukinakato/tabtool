@@ -19,8 +19,8 @@ function openTwitter(tab) {
     // let enc_title = encodeURIComponent(tab[0].title);
     // let enc_url = encodeURIComponent(tab[0].url);
     // let openurl = `https://twitter.com/intent/tweet?text=${enc_title}&url=${enc_url}`;
-    let enc_status = encodeURIComponent("\n\n\n" + tab[0].title + "\n" + tab[0].url);
-    let openurl = `https://twitter.com/intent/tweet?status=${enc_status}`;
+    let enc_text = encodeURIComponent("\n\n" + tab[0].title + "\n" + tab[0].url);
+    let openurl = `https://twitter.com/intent/tweet?text=${enc_text}`;
     let features = `width=540,height=360,left=${pos_left},top=${pos_top},scrollbars=yes,resizable=yes,toolbar=no,location=no`;
     window.open(openurl, "_blank", features);
     tid = 0;
