@@ -36,9 +36,7 @@ async function closeTabsInDirection(direction) {
     (tab) =>
       (direction === "right" && currentTabIndex < tab.index) || (direction === "left" && tab.index < currentTabIndex)
   );
-  targetTabs.forEach((tab) => {
-    chrome.tabs.remove(tab.id);
-  });
+  chrome.tabs.remove(targetTabs.map((tab) => tab.id));
 }
 
 async function duplicateCurrentTab() {
