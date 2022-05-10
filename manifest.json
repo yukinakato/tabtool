@@ -31,6 +31,12 @@
         "default": "Ctrl+Shift+U"
       },
       "description": "Close right tabs"
+    },
+    "duplicateCurrentTab": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+H"
+      },
+      "description": "Duplicate current tab"
     }
   },
   "icons": {

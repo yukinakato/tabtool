@@ -29,7 +29,7 @@ function openTwitterWindow(tab) {
   });
 }
 
-async function closeTabsInDirection(direction = "right") {
+async function closeTabsInDirection(direction) {
   const allTabs = await chrome.tabs.query({ currentWindow: true });
   const currentTabIndex = allTabs.find((tab) => tab.active).index;
   const targetTabs = allTabs.filter(
@@ -41,6 +41,11 @@ async function closeTabsInDirection(direction = "right") {
   });
 }
 
+async function duplicateCurrentTab() {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  chrome.tabs.duplicate(tab.id);
+}
+
 chrome.commands.onCommand.addListener((command) => {
   switch (command) {
     case "closeLeftTabs":
@@ -48,6 +53,9 @@ chrome.commands.onCommand.addListener((command) => {
       break;
     case "closeRightTabs":
       closeTabsInDirection("right");
+      break;
+    case "duplicateCurrentTab":
+      duplicateCurrentTab();
       break;
   }
 });
