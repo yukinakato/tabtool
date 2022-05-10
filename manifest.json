@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "tabtool",
   "description": "Additional tab management and share functionality.",
-  "version": "2.0",
+  "version": "2.1",
   "action": {
     "default_icon": "icon_32.png"
   },
