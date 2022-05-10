@@ -34,7 +34,7 @@
     },
     "duplicateCurrentTab": {
       "suggested_key": {
-        "default": "Ctrl+Shift+H"
+        "default": "Ctrl+Shift+D"
       },
       "description": "Duplicate current tab"
     },
