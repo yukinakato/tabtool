@@ -1,24 +1,22 @@
 const timeout = 200;
 let tid = 0;
-let tab = null;
 
 chrome.action.onClicked.addListener(async () => {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (tid === 0) {
-    [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    tid = setTimeout(copyToClipBoard, timeout);
+    tid = setTimeout(copyToClipBoard, timeout, tab);
   } else {
     clearTimeout(tid);
-    openTwitterWindow();
+    openTwitterWindow(tab);
   }
 });
 
-async function copyToClipBoard() {
+async function copyToClipBoard(tab) {
   await chrome.tabs.sendMessage(tab.id, { message: tab.title + "\n" + tab.url });
   tid = 0;
-  tab = null;
 }
 
-function openTwitterWindow() {
+function openTwitterWindow(tab) {
   chrome.windows.getCurrent({}, (window) => {
     const width = 680;
     const height = 410;
@@ -28,6 +26,17 @@ function openTwitterWindow() {
     const url = `https://twitter.com/intent/tweet?text=${text}`;
     chrome.windows.create({ url, left, top, width, height, type: "popup" });
     tid = 0;
-    tab = null;
+  });
+}
+
+async function closeTabsInDirection(direction = "right") {
+  const allTabs = await chrome.tabs.query({ currentWindow: true });
+  const currentTabIndex = allTabs.find((tab) => tab.active).index;
+  const targetTabs = allTabs.filter(
+    (tab) =>
+      (direction === "right" && currentTabIndex < tab.index) || (direction === "left" && tab.index < currentTabIndex)
+  );
+  targetTabs.forEach((tab) => {
+    chrome.tabs.remove(tab.id);
   });
 }
