@@ -37,6 +37,12 @@
         "default": "Ctrl+Shift+H"
       },
       "description": "Duplicate current tab"
+    },
+    "searchSelectedString": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S"
+      },
+      "description": "Search selected string"
     }
   },
   "icons": {
@@ -45,6 +51,7 @@
   },
   "permissions": [
     "tabs",
+    "search",
     "clipboardWrite"
   ]
 }

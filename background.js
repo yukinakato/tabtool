@@ -12,7 +12,7 @@ chrome.action.onClicked.addListener(async () => {
 });
 
 async function copyToClipBoard(tab) {
-  await chrome.tabs.sendMessage(tab.id, { message: tab.title + "\n" + tab.url });
+  await chrome.tabs.sendMessage(tab.id, { operation: "clipboard", pageInfo: tab.title + "\n" + tab.url });
   tid = 0;
 }
 
@@ -44,6 +44,14 @@ async function duplicateCurrentTab() {
   chrome.tabs.duplicate(tab.id);
 }
 
+async function searchSelectedString() {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const { selection } = await chrome.tabs.sendMessage(tab.id, { operation: "searchSelectedString" });
+  if (selection) {
+    chrome.search.query({ disposition: "NEW_TAB", text: selection });
+  }
+}
+
 chrome.commands.onCommand.addListener((command) => {
   switch (command) {
     case "closeLeftTabs":
@@ -54,6 +62,9 @@ chrome.commands.onCommand.addListener((command) => {
       break;
     case "duplicateCurrentTab":
       duplicateCurrentTab();
+      break;
+    case "searchSelectedString":
+      searchSelectedString();
       break;
   }
 });
