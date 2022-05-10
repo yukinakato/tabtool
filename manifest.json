@@ -19,6 +19,20 @@
       ]
     }
   ],
+  "commands": {
+    "closeLeftTabs": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y"
+      },
+      "description": "Close left tabs"
+    },
+    "closeRightTabs": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+U"
+      },
+      "description": "Close right tabs"
+    }
+  },
   "icons": {
     "32": "icon_32.png",
     "128": "icon_128.png"

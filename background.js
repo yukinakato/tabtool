@@ -40,3 +40,14 @@ async function closeTabsInDirection(direction = "right") {
     chrome.tabs.remove(tab.id);
   });
 }
+
+chrome.commands.onCommand.addListener((command) => {
+  switch (command) {
+    case "closeLeftTabs":
+      closeTabsInDirection("left");
+      break;
+    case "closeRightTabs":
+      closeTabsInDirection("right");
+      break;
+  }
+});
