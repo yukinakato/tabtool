@@ -1,32 +1,32 @@
 const timeout = 200;
 let tid = 0;
 
-chrome.action.onClicked.addListener(async () => {
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+chrome.action.onClicked.addListener(() => {
   if (tid === 0) {
-    tid = setTimeout(copyToClipBoard, timeout, tab);
+    tid = setTimeout(copyToClipBoard, timeout);
   } else {
     clearTimeout(tid);
-    openTwitterWindow(tab);
+    openTwitterWindow();
   }
 });
 
-async function copyToClipBoard(tab) {
+async function copyToClipBoard() {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   await chrome.tabs.sendMessage(tab.id, { operation: "clipboard", pageInfo: tab.title + "\n" + tab.url });
   tid = 0;
 }
 
-function openTwitterWindow(tab) {
-  chrome.windows.getCurrent({}, (window) => {
-    const width = 680;
-    const height = 410;
-    const left = window.left + window.width - width;
-    const top = window.top + window.height - tab.height;
-    const text = encodeURIComponent("\n\n" + tab.title + "\n" + tab.url);
-    const url = `https://twitter.com/intent/tweet?text=${text}`;
-    chrome.windows.create({ url, left, top, width, height, type: "popup" });
-    tid = 0;
-  });
+async function openTwitterWindow() {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const window = await chrome.windows.getCurrent();
+  const width = 680;
+  const height = 410;
+  const left = window.left + window.width - width - 25;
+  const top = window.top + window.height - tab.height;
+  const text = encodeURIComponent("\n\n" + tab.title + "\n" + tab.url);
+  const url = `https://twitter.com/intent/tweet?text=${text}`;
+  chrome.windows.create({ url, left, top, width, height, type: "popup" });
+  tid = 0;
 }
 
 async function closeTabsInDirection(direction) {
