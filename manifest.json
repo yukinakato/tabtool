@@ -1,16 +1,30 @@
 {
+  "manifest_version": 3,
   "name": "tabtool",
-  "description" : "Copy page title and URL into clipboard or share with Twitter",
-  "version": "1.1",
-  "browser_action": {
+  "description": "Additional tab management and share functionality.",
+  "version": "2.0",
+  "action": {
     "default_icon": "icon_32.png"
   },
   "background": {
-    "page" : "background.html",
-    "persistent": false
+    "service_worker": "background.js"
   },
-  "icons": { "32": "icon_32.png",
-             "128": "icon_128.png" },
-  "permissions": ["tabs", "clipboardWrite"],
-  "manifest_version": 2
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "js": [
+        "clipboard.js"
+      ]
+    }
+  ],
+  "icons": {
+    "32": "icon_32.png",
+    "128": "icon_128.png"
+  },
+  "permissions": [
+    "tabs",
+    "clipboardWrite"
+  ]
 }
