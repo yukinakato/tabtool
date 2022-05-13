@@ -47,7 +47,10 @@ async function duplicateCurrentTab() {
 async function searchSelectedString() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   const { selection } = await chrome.tabs.sendMessage(tab.id, { operation: "searchSelectedString" });
-  if (selection) {
+  if (!selection) return;
+  if (/^https?:\/\/.+/.test(selection)) {
+    chrome.tabs.create({ index: tab.index + 1, url: selection });
+  } else {
     await chrome.tabs.sendMessage(tab.id, { operation: "clipboard", text: selection });
     chrome.search.query({ disposition: "NEW_TAB", text: selection });
   }
