@@ -15,7 +15,8 @@
         "*://*/*"
       ],
       "js": [
-        "content-script.js"
+        "front.js",
+        "scroll.js"
       ]
     }
   ],
