@@ -12,7 +12,7 @@ chrome.action.onClicked.addListener(() => {
 
 async function copyToClipBoard() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  await chrome.tabs.sendMessage(tab.id, { operation: "clipboard", pageInfo: tab.title + "\n" + tab.url });
+  await chrome.tabs.sendMessage(tab.id, { operation: "clipboard", text: tab.title + "\n" + tab.url });
   tid = 0;
 }
 
@@ -48,6 +48,7 @@ async function searchSelectedString() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   const { selection } = await chrome.tabs.sendMessage(tab.id, { operation: "searchSelectedString" });
   if (selection) {
+    await chrome.tabs.sendMessage(tab.id, { operation: "clipboard", text: selection });
     chrome.search.query({ disposition: "NEW_TAB", text: selection });
   }
 }
