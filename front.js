@@ -2,10 +2,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   switch (request.operation) {
     case "clipboard":
       if (window.isSecureContext && navigator.clipboard) {
-        navigator.clipboard.writeText(request.text).then(() => {
-          sendResponse();
-        });
-        return true;
+        navigator.clipboard.writeText(request.text);
       } else {
         const textarea = document.createElement("textarea");
         textarea.value = request.text;
@@ -13,8 +10,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         textarea.select();
         document.execCommand("copy");
         document.body.removeChild(textarea);
-        sendResponse();
       }
+      sendResponse();
       break;
     case "getSelection":
       sendResponse({ selection: window.getSelection().toString() });
