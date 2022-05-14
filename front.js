@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         sendResponse();
       }
       break;
-    case "searchSelectedString":
+    case "getSelection":
       sendResponse({ selection: window.getSelection().toString() });
       break;
     default:
