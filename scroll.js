@@ -1,6 +1,9 @@
 let altPressed = false;
 
 function isScrollable(el) {
+  if (el.tagName === "HTML" || el.tagName === "BODY") {
+    return false;
+  }
   if (el.scrollHeight <= el.clientHeight) {
     return false;
   }
@@ -41,7 +44,7 @@ window.addEventListener(
   (event) => {
     if (!altPressed) return;
     event.preventDefault();
-    findScrollTarget(event.target).scrollBy(0, event.deltaY * 4.5);
+    findScrollTarget(event.target).scrollBy(0, event.deltaY * 5);
   },
   { passive: false }
 );
