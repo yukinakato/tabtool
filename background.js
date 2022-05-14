@@ -47,7 +47,7 @@ async function duplicateCurrentTab() {
 async function searchSelectedString() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   let { selection } = await chrome.tabs.sendMessage(tab.id, { operation: "getSelection" });
-  selection = selection.replace(/\r?\n/, "").trim();
+  selection = selection.replace(/\r?\n/g, "").trim();
   if (!selection) return;
   if (/^https?:\/\/\S+$/.test(selection)) {
     chrome.tabs.create({ index: tab.index + 1, url: selection });
