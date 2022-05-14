@@ -41,7 +41,7 @@ window.addEventListener(
   (event) => {
     if (!altPressed) return;
     event.preventDefault();
-    findScrollTarget(event.target).scrollBy(0, event.deltaY * (altPressed ? 4 : 1));
+    findScrollTarget(event.target).scrollBy(0, event.deltaY * 4.5);
   },
   { passive: false }
 );
