@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "tabtool",
   "description": "Additional tab management and share functionality.",
-  "version": "2.1",
+  "version": "2.2",
   "action": {
     "default_icon": "icon_32.png"
   },
@@ -25,25 +25,29 @@
       "suggested_key": {
         "default": "Ctrl+Shift+Y"
       },
-      "description": "Close left tabs"
+      "description": "Close left tabs",
+      "global": false
     },
     "closeRightTabs": {
       "suggested_key": {
         "default": "Ctrl+Shift+U"
       },
-      "description": "Close right tabs"
+      "description": "Close right tabs",
+      "global": false
     },
     "duplicateCurrentTab": {
       "suggested_key": {
         "default": "Ctrl+Shift+D"
       },
-      "description": "Duplicate current tab"
+      "description": "Duplicate current tab",
+      "global": false
     },
     "searchSelectedString": {
       "suggested_key": {
         "default": "Ctrl+Shift+S"
       },
-      "description": "Search selected string"
+      "description": "Search selected string",
+      "global": false
     }
   },
   "icons": {
