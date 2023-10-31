@@ -1,50 +1,27 @@
-let altPressed = false;
-
 function isScrollable(el) {
-  if (el.tagName === "HTML" || el.tagName === "BODY") {
-    return false;
+  if (el.tagName === 'HTML' || el.tagName === 'BODY') {
+    return false
   }
   if (el.scrollHeight <= el.clientHeight) {
-    return false;
+    return false
   }
-  const scrollableAttr = ["auto", "overlay", "scroll"];
-  const style = window.getComputedStyle(el);
-  return (
-    scrollableAttr.includes(style.getPropertyValue("overflow")) ||
-    scrollableAttr.includes(style.getPropertyValue("overflow-y"))
-  );
+  const scrollableAttrs = ['auto', 'overlay', 'scroll']
+  const style = window.getComputedStyle(el)
+  return scrollableAttrs.includes(style.getPropertyValue('overflow')) || scrollableAttrs.includes(style.getPropertyValue('overflow-y'))
 }
 
 function findScrollTarget(el) {
   if (isScrollable(el)) {
-    return el;
+    return el
   }
   if (el.parentElement) {
-    return findScrollTarget(el.parentElement);
+    return findScrollTarget(el.parentElement)
   }
-  return window;
+  return window
 }
 
-window.addEventListener("keydown", (event) => {
-  if (event.code === "AltLeft") {
-    altPressed = true;
-    event.preventDefault();
+window.addEventListener('wheel', (event) => {
+  if (event.altKey) {
+    findScrollTarget(event.target).scrollBy(0, event.deltaY * 4)
   }
-});
-
-window.addEventListener("keyup", (event) => {
-  if (event.code === "AltLeft") {
-    altPressed = false;
-    event.preventDefault();
-  }
-});
-
-window.addEventListener(
-  "wheel",
-  (event) => {
-    if (!altPressed) return;
-    event.preventDefault();
-    findScrollTarget(event.target).scrollBy(0, event.deltaY * 5);
-  },
-  { passive: false }
-);
+})
